@@ -43,4 +43,15 @@ public class Player {
     public void setBalanceVersion(Long balanceVersion) {
         this.balanceVersion = balanceVersion;
     }
+
+    @Override
+    public String toString() {
+        return "username: '"
+                .concat(username)
+                .concat( "' balanceVersion: '")
+                .concat(balanceVersion.toString())
+                .concat("' balance: '")
+                .concat(balance.toString())
+                .concat("'");
+    }
 }
