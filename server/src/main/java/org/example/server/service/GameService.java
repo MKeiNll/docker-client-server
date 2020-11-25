@@ -27,7 +27,7 @@ public class GameService {
     private final ArrayList<Player> playerState = new ArrayList<>();
     private final ArrayList<BalanceChangeResponseDto> transactionsMade = new ArrayList<>();
 
-    Logger logger = LoggerFactory.getLogger(GameService.class);
+    private Logger logger = LoggerFactory.getLogger(GameService.class);
 
     public GameService(PlayerRepository playerRepository, GameProperties gameProperties) {
         this.playerRepository = playerRepository;
@@ -36,25 +36,25 @@ public class GameService {
         // On startup, load player data from the database into the state
         playerRepository.findAll().forEach(playerState::add);
         logger.debug("load player data OK - {} players loaded into the memory", playerState.size());
-        logger.trace("player state: {}", playerState.toString());
+        logger.trace("player state: {}", playerState);
     }
 
     // On shutdown, save player data from the state into the database
     @PreDestroy
-    public void preDestroy() {
+    private void preDestroy() {
         backupPlayerState();
     }
 
     // A periodical task to save player state into the database
     @Scheduled(fixedRate = 60000)
-    public void backupPlayerState() {
-        logger.trace("player state: {}", playerState.toString());
+    private void backupPlayerState() {
+        logger.trace("player state: {}", playerState);
         this.playerRepository.saveAll(playerState);
         logger.debug("backup player state OK - {} players saved to the database", playerState.size());
     }
 
     public BalanceChangeResponseDto addFunds(BalanceChangeRequestDto addRequest) {
-        logger.info("addFunds - {}", addRequest.toString());
+        logger.info("addFunds - {}", addRequest);
         String username = addRequest.username;
         if (playerIsBlacklisted(username)) {
             logger.trace("addFunds - player is blacklisted");
@@ -63,7 +63,7 @@ public class GameService {
 
         BalanceChangeResponseDto existingTransaction = getExistingTransaction(addRequest.transactionId);
         if (existingTransaction != null) {
-            logger.info("addFunds - returning an existing transaction - {}", existingTransaction.toString());
+            logger.info("addFunds - returning an existing transaction - {}", existingTransaction);
             return existingTransaction;
         }
 
@@ -85,12 +85,12 @@ public class GameService {
         response.balanceAfterChange = player.getBalance();
 
         rememberTransaction(response);
-        logger.info("addFunds - transaction OK - {}", response.toString());
+        logger.info("addFunds - transaction OK - {}", response);
         return response;
     }
 
     public BalanceChangeResponseDto withdrawFunds(BalanceChangeRequestDto withdrawRequest) {
-        logger.info("withdrawFunds - {}", withdrawRequest.toString());
+        logger.info("withdrawFunds - {}", withdrawRequest);
         String username = withdrawRequest.username;
         if (playerIsBlacklisted(username)) {
             logger.trace("withdrawFunds - player is blacklisted");
@@ -99,7 +99,7 @@ public class GameService {
 
         BalanceChangeResponseDto existingTransaction = getExistingTransaction(withdrawRequest.transactionId);
         if (existingTransaction != null) {
-            logger.info("withdrawFunds - returning an existing transaction - {}", existingTransaction.toString());
+            logger.info("withdrawFunds - returning an existing transaction - {}", existingTransaction);
             return existingTransaction;
         }
 
@@ -121,7 +121,7 @@ public class GameService {
         response.balanceAfterChange = player.getBalance();
 
         rememberTransaction(response);
-        logger.info("withdrawFunds - transaction OK - {}", response.toString());
+        logger.info("withdrawFunds - transaction OK - {}", response);
         return response;
     }
 

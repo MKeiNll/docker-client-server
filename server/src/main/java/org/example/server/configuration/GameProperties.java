@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class GameProperties {
 
     @DecimalMin("0.01")
-    @Digits(integer=100, fraction=2)
+    @Digits(integer = 100, fraction = 2)
     private BigDecimal maxBalance;
 
     private String[] blacklist = {};
@@ -36,7 +36,7 @@ public class GameProperties {
     }
 
     public void setBlacklist(String blacklist) {
-        if (blacklist != null || !blacklist.isBlank()) {
+        if (blacklist != null && !blacklist.isBlank()) {
             this.blacklist = blacklist.split(",");
         }
     }

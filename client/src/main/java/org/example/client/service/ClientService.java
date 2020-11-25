@@ -17,7 +17,6 @@ public class ClientService {
 
     private RestTemplate restTemplate;
     private HttpHeaders headers;
-    private URI uri;
     private Random random;
 
     public ClientService() {
@@ -34,7 +33,7 @@ public class ClientService {
         balanceChangeRequest.put("transactionId", random.nextLong());
         balanceChangeRequest.put("username", "player" + random.nextInt(25));
         balanceChangeRequest.put("balanceChange", random.nextInt(100000) + "." + random.nextInt(100));
-        HttpEntity<String> request = new HttpEntity<String>(balanceChangeRequest.toString(), headers);
+        HttpEntity<String> request = new HttpEntity<>(balanceChangeRequest.toString(), headers);
         restTemplate.postForObject(new URI("http://localhost:9090/".concat(random.nextBoolean() ? "addFunds" : "withdrawFunds")), request, String.class);
     }
 }

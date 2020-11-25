@@ -6,8 +6,8 @@ import org.example.server.entity.Player;
 public class NotEnoughFundsException extends RuntimeException implements GameException {
     public static final int ERROR_CODE = 200;
 
-    private Player player;
-    private BalanceChangeRequestDto request;
+    private final transient Player player;
+    private final transient BalanceChangeRequestDto request;
 
     public NotEnoughFundsException(BalanceChangeRequestDto request, Player player) {
         super();

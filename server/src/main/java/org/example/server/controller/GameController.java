@@ -25,7 +25,7 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
-    Logger logger = LoggerFactory.getLogger(GameController.class);
+    private Logger logger = LoggerFactory.getLogger(GameController.class);
 
     @PostMapping("/addFunds")
     public BalanceChangeResponseDto addFunds(@Valid @RequestBody BalanceChangeRequestDto addRequest) {
@@ -55,7 +55,7 @@ public class GameController {
         response.balanceAfterChange = player != null ? player.getBalance() : null;
         response.errorCode = e.getErrorCode();
 
-        logger.info("handleGameException - response: {}", response.toString());
+        logger.info("handleGameException - response: {}", response);
         return response;
     }
 }

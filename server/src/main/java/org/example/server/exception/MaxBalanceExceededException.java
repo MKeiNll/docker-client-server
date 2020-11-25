@@ -6,8 +6,8 @@ import org.example.server.entity.Player;
 public class MaxBalanceExceededException extends RuntimeException implements GameException {
     public static final int ERROR_CODE = 100;
 
-    private Player player;
-    private BalanceChangeRequestDto request;
+    private final transient Player player;
+    private final transient BalanceChangeRequestDto request;
 
     public MaxBalanceExceededException(BalanceChangeRequestDto request, Player player) {
         super();
