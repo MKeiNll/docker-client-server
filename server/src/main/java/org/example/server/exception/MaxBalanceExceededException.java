@@ -3,7 +3,7 @@ package org.example.server.exception;
 import org.example.server.dto.BalanceChangeRequestDto;
 import org.example.server.entity.Player;
 
-public class MaxBalanceExceededException extends RuntimeException implements GameException  {
+public class MaxBalanceExceededException extends RuntimeException implements GameException {
     public static final int ERROR_CODE = 100;
 
     private Player player;

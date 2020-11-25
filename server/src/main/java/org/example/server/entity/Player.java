@@ -1,6 +1,9 @@
 package org.example.server.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
 
@@ -8,7 +11,8 @@ import java.math.BigDecimal;
 @Table(name = "player")
 public class Player {
 
-    @Id @Column(length = 32, nullable = false, unique = true)
+    @Id
+    @Column(length = 32, nullable = false, unique = true)
     private String username;
 
     private Long balanceVersion = 1L;
@@ -48,7 +52,7 @@ public class Player {
     public String toString() {
         return "username: '"
                 .concat(username)
-                .concat( "' balanceVersion: '")
+                .concat("' balanceVersion: '")
                 .concat(balanceVersion.toString())
                 .concat("' balance: '")
                 .concat(balance.toString())

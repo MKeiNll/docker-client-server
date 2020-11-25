@@ -13,7 +13,7 @@ public class BalanceChangeResponseDto {
     public String toString() {
         return "transactionId: '"
                 .concat(transactionId.toString())
-                .concat( "' balanceVersion: '")
+                .concat("' balanceVersion: '")
                 .concat(balanceVersion.toString())
                 .concat("' balanceChange: '")
                 .concat(balanceChange.toString())
