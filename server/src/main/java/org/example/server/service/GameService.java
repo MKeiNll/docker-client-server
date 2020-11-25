@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PreDestroy;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,12 +38,6 @@ public class GameService {
         playerRepository.findAll().forEach(playerState::add);
         logger.debug("load player data OK - {} players loaded into the memory", playerState.size());
         logger.trace("player state: {}", playerState);
-    }
-
-    // On shutdown, save player data from the state into the database
-    @PreDestroy
-    private void preDestroy() {
-        backupPlayerState();
     }
 
     // A periodical task to save player state into the database
@@ -79,6 +72,7 @@ public class GameService {
             throw new MaxBalanceExceededException(addRequest, player);
         }
         player.setBalance(balanceAfterChange);
+        player.setBalanceVersion(player.getBalanceVersion() + 1L);
 
         BalanceChangeResponseDto response = new BalanceChangeResponseDto();
         response.transactionId = addRequest.transactionId;
@@ -115,6 +109,7 @@ public class GameService {
             throw new MaxBalanceExceededException(withdrawRequest, player);
         }
         player.setBalance(balanceAfterChange);
+        player.setBalanceVersion(player.getBalanceVersion() + 1L);
 
         BalanceChangeResponseDto response = new BalanceChangeResponseDto();
         response.transactionId = withdrawRequest.transactionId;

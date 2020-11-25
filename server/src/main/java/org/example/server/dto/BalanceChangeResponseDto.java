@@ -14,11 +14,11 @@ public class BalanceChangeResponseDto {
         return "transactionId: '"
                 .concat(transactionId.toString())
                 .concat("' balanceVersion: '")
-                .concat(balanceVersion.toString())
+                .concat(balanceVersion != null ? balanceVersion.toString() : "null")
                 .concat("' balanceChange: '")
                 .concat(balanceChange.toString())
                 .concat("' balanceAfterChange: '")
-                .concat(balanceAfterChange.toString())
+                .concat(balanceAfterChange != null ? balanceAfterChange.toString() : "null")
                 .concat("' errorCode: '")
                 .concat(Integer.toString(errorCode))
                 .concat("'");

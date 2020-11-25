@@ -24,6 +24,9 @@ public class Player {
         this.username = username;
     }
 
+    public Player() {
+    }
+
     public String getUsername() {
         return username;
     }

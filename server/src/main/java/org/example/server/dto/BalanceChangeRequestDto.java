@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 public class BalanceChangeRequestDto {
     @Min(1)
+    @NotNull()
     public Long transactionId;
 
     @NotEmpty()
