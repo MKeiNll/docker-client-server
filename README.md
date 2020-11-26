@@ -21,7 +21,7 @@ Both parts are made on Spring Boot.
   + Specific gameplay logic is not implemented & is simulated via random balance change generation instead.
 + Communication between client & server is done via HTTP. There are 2 endpoints - `/addFunds` & `/withdrawFunds`.
   + Request model is `username`, `transactionId` & `balanceChange`.
-  + Response model is `transactionId`, `erroCode`, `balanceVersion`, `balanceChange` & `balanceAfterChange`.
+  + Response model is `transactionId`, `errorCode`, `balanceVersion`, `balanceChange` & `balanceAfterChange`.
 + Database consists of 1 table - `PLAYER(USERNAME, BALANCE_VERSION, BALANCE)`.
 + Both applications are built using Gradle & are packaged into Docker containers.
 
