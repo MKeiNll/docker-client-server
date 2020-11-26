@@ -26,3 +26,6 @@ test {
     useJUnitPlatform()
 }
 
+bootBuildImage {
+    imageName='game-server'
+}

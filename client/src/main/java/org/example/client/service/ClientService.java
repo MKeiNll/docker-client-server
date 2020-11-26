@@ -1,6 +1,8 @@
 package org.example.client.service;
 
 import net.minidev.json.JSONObject;
+import org.example.client.configuration.ClientProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,6 +18,8 @@ import java.util.Random;
 @Service()
 public class ClientService {
 
+    @Autowired
+    private ClientProperties clientProperties;
     private RestTemplate restTemplate;
     private HttpHeaders headers;
     private Random random;
@@ -41,7 +45,7 @@ public class ClientService {
             balanceChangeRequest.put("balanceChange", random.nextInt(100000) + "." + random.nextInt(100));
             System.out.println("REQUEST: " + balanceChangeRequest.toString());
             HttpEntity<String> request = new HttpEntity<>(balanceChangeRequest.toString(), headers);
-            restTemplate.postForObject(new URI("http://localhost:9090/".concat(random.nextBoolean() ? "addFunds" : "withdrawFunds")), request, String.class);
+            restTemplate.postForObject(new URI(clientProperties.getServerUrl().concat(random.nextBoolean() ? "/addFunds" : "/withdrawFunds")), request, String.class);
         } catch (HttpClientErrorException e) {
             // Silently ignore known errors
             if (!e.getMessage().contains("\"errorCode\"")) {
